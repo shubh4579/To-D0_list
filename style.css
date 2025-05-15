@@ -1,0 +1,163 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: blueviolet;
+}
+
+.container {
+  width: 100%;
+  max-width: 540px;
+  height: 600px;
+  background: #fff;
+  margin: 59px auto 63px;
+  border-radius: 20px;
+  padding: 3rem;
+}
+.todo-app {
+  left: 87px;
+  position: relative;
+  font-size: 3rem;
+}
+
+.image {
+  width: 30px;
+  margin-left: 10px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #edeef0;
+  border-radius: 30px;
+  padding-left: 20px;
+  margin-bottom: 25px;
+  margin-top: 30px;
+}
+
+#input-box {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 10px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 25px;
+  background: #ff5945;
+  color: #fff;
+  border: none;
+  outline: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #e14b3a;
+}
+
+.todolist {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.todo-item {
+  padding: 12px 8px 12px 50px;
+  font-size: 18px;
+  user-select: none;
+  cursor: pointer;
+  position: relative;
+  background-color: #dc9292;
+  border-radius: 10px;
+  border: 1px solid #2fd427;
+}
+
+.todolist .todo-item::before {
+  content: "";
+  position: absolute;
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  background-image: url("uncheck.png");
+  background-size: cover;
+  background-position: center;
+  top: 12px;
+  left: 8px;
+}
+
+.todolist .todo-item.checked {
+  color: #555;
+  text-decoration: line-through;
+}
+
+.todolist .todo-item.checked::before {
+  background-image: url("checked.gif");
+}
+
+.todolist .todo-item span {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  color: #555;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.todolist .todo-item span:hover {
+  background: #edeef0;
+}
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem;
+  }
+
+  .todo-app {
+    font-size: 1.5rem;
+  }
+
+  button {
+    padding: 8px 20px;
+  }
+
+  .todo-item {
+    font-size: 16px;
+    padding-left: 45px;
+  }
+
+  #input-box {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .row {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  button {
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .todo-item {
+    font-size: 15px;
+  }
+}
