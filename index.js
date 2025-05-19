@@ -1,42 +1,60 @@
-const textArea = document.getElementById("input-box");
-const button = document.querySelector(".addbtn");
-const todolist = document.querySelector(".todolist");
+const input = document.querySelector("#input-box");
 
-button.addEventListener("click", addToDoListItem);
+const button = document.querySelector(".addbtn");
+
+const todo = document.querySelector(".todolist");
+
+let task = JSON.parse(localStorage.getItem("task")) || [];
+
+function saveTask() {
+  localStorage.setItem("task", JSON.stringify(task));
+}
+
+function renderTask() {
+  todo.innerHTML = "";
+
+  task.forEach((tasks, index) => {
+    const tododiv = document.createElement("div");
+    tododiv.classList.add("todo-item");
+    if (tasks.completed) {
+      tododiv.classList.add("checked");
+    }
+
+    tododiv.textContent = tasks.text;
+    const span = document.createElement("span");
+    span.innerHTML = "&times;";
+    tododiv.appendChild(span);
+    todo.appendChild(tododiv);
+
+    tododiv.addEventListener("click", function () {
+      task[index].completed = !task[index].completed;
+      saveTask();
+      renderTask();
+    });
+    span.addEventListener("click", function (e) {
+      e.stopPropagation();
+      task.splice(index, 1);
+      saveTask();
+      renderTask();
+    });
+  });
+}
 
 function addToDoListItem() {
-  const inputValue = textArea.value.trim();
-  if (inputValue === "") {
-    alert("Please enter a task!");
+  const inputValue = input.value.trim();
+  if (inputValue == "") {
+    alert("Add task first");
     return;
   }
 
-  // Create main todo item div
-  const tododiv = document.createElement("div");
-  tododiv.classList.add("todo-item");
-
-  // Add task text
-  tododiv.textContent = inputValue;
-
-  // Add delete span (×)
-  const span = document.createElement("span");
-  span.innerHTML = "&times;";
-  tododiv.appendChild(span);
-
-  // Append to list
-  todolist.appendChild(tododiv);
-
-  // Clear input
-  textArea.value = "";
-
-  // Toggle checked on click
-  tododiv.addEventListener("click", function () {
-    tododiv.classList.toggle("checked");
-  });
-
-  // Delete on span click
-  span.addEventListener("click", function (e) {
-    e.stopPropagation();
-    tododiv.remove();
-  });
+  const newTask = {
+    text: input.value,
+    completed: false,
+  };
+  task.push(newTask);
+  saveTask();
+  renderTask();
+  input.value = "";
 }
+button.addEventListener("click", addToDoListItem);
+renderTask();
